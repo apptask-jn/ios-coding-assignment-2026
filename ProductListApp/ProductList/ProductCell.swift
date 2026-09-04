@@ -3,18 +3,21 @@ import SwiftUI
 struct ProductCell: View {
 
   private enum Metric {
-    static let thumbnailSize: CGFloat = 88
+    static let compactThumbnailWidth: CGFloat = 88
+    static let compactThumbnailHeight: CGFloat = 88
+    static let regularThumbnailHeight: CGFloat = 140
     static let contentSpacing: CGFloat = 12
     static let textSpacing: CGFloat = 4
     static let cornerRadius: CGFloat = 16
   }
 
   let product: Product
+  let layout: ProductListLayout
   let isFavorite: Bool
   let toggleFavorite: () -> Void
 
   var body: some View {
-    HStack(alignment: .top, spacing: Metric.contentSpacing) {
+    self.stackLayout {
       AsyncImage(url: self.product.thumbnailURL) { image in
         image
           .resizable()
@@ -22,7 +25,11 @@ struct ProductCell: View {
       } placeholder: {
         ProgressView()
       }
-      .frame(width: Metric.thumbnailSize, height: Metric.thumbnailSize)
+      .frame(
+        maxWidth: self.thumbnailMaxWidth,
+        minHeight: self.thumbnailHeight,
+        maxHeight: self.thumbnailHeight
+      )
 
       VStack(alignment: .leading, spacing: Metric.textSpacing) {
         Text(self.product.category.capitalized)
@@ -37,12 +44,45 @@ struct ProductCell: View {
           .font(.subheadline)
           .bold()
       }
-
-      Spacer(minLength: 0)
-
+      .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    .overlay(alignment: self.favoriteAlignment) {
       FavoriteButton(isFavorite: self.isFavorite, toggle: self.toggleFavorite)
     }
     .padding()
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     .background(.background.secondary, in: .rect(cornerRadius: Metric.cornerRadius))
+  }
+
+  // MARK: Private
+
+  private var stackLayout: AnyLayout {
+    switch self.layout {
+    case .oneColumn:
+      AnyLayout(HStackLayout(alignment: .top, spacing: Metric.contentSpacing))
+    case .twoColumn:
+      AnyLayout(VStackLayout(alignment: .leading, spacing: Metric.contentSpacing))
+    }
+  }
+
+  private var favoriteAlignment: Alignment {
+    switch self.layout {
+    case .oneColumn: .trailing
+    case .twoColumn: .bottomTrailing
+    }
+  }
+
+  private var thumbnailMaxWidth: CGFloat {
+    switch self.layout {
+    case .oneColumn: Metric.compactThumbnailWidth
+    case .twoColumn: .infinity
+    }
+  }
+
+  private var thumbnailHeight: CGFloat {
+    switch self.layout {
+    case .oneColumn: Metric.compactThumbnailHeight
+    case .twoColumn: Metric.regularThumbnailHeight
+    }
   }
 }

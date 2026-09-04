@@ -2,13 +2,10 @@ import SwiftUI
 
 struct ProductListView: View {
 
-  private enum Metric {
-    static let itemSpacing: CGFloat = 16
-  }
-
   @Environment(FavoriteStore.self) private var favoriteStore
 
   @State private var model = ProductListViewModel()
+  @State private var layout: ProductListLayout = .oneColumn
 
   var body: some View {
     Group {
@@ -18,10 +15,11 @@ struct ProductListView: View {
 
       case .loaded(let products):
         ScrollView {
-          LazyVGrid(columns: [GridItem(.flexible())], spacing: Metric.itemSpacing) {
+          LazyVGrid(columns: self.layout.columns, spacing: ProductListLayout.itemSpacing) {
             ForEach(products) { product in
               ProductCell(
                 product: product,
+                layout: self.layout,
                 isFavorite: self.favoriteStore.contains(product.id),
                 toggleFavorite: { self.favoriteStore.toggle(product.id) }
               )
@@ -44,6 +42,13 @@ struct ProductListView: View {
       }
     }
     .navigationTitle("상품 목록")
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button(self.layout.toggled.switchTitle, systemImage: self.layout.toggled.symbolName) {
+          self.layout = self.layout.toggled
+        }
+      }
+    }
     .task { await self.model.load() }
   }
 }
