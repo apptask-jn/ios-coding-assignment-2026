@@ -2,24 +2,28 @@ import SwiftUI
 
 struct ProductListView: View {
 
-  @Environment(FavoriteStore.self) private var favoriteStore
+  // MARK: Properties
 
-  @State private var model = ProductListViewModel()
-  @State private var layout: ProductListLayout = .oneColumn
+  @Environment(FavoriteStore.self) private var favoriteStore
+  @State private var viewModel = ProductListViewModel()
+  @State private var layoutMode: ProductListLayoutMode = .oneColumn
+
+
+  // MARK: Layout
 
   var body: some View {
     Group {
-      switch self.model.state {
+      switch self.viewModel.state {
       case .loading:
         ProgressView()
 
       case .loaded(let products):
         ScrollView {
-          LazyVGrid(columns: self.layout.columns, spacing: ProductListLayout.itemSpacing) {
+          LazyVGrid(columns: self.layoutMode.columns, spacing: ProductListLayoutMode.itemSpacing) {
             ForEach(products) { product in
               ProductCell(
                 product: product,
-                layout: self.layout,
+                layoutMode: self.layoutMode,
                 isFavorite: self.favoriteStore.contains(product.id),
                 toggleFavorite: { self.favoriteStore.toggle(product.id) }
               )
@@ -35,7 +39,7 @@ struct ProductListView: View {
           Text(failure.message)
         } actions: {
           Button("다시 시도") {
-            Task { await self.model.load() }
+            Task { await self.viewModel.load() }
           }
           .buttonStyle(.borderedProminent)
         }
@@ -44,12 +48,15 @@ struct ProductListView: View {
     .navigationTitle("상품 목록")
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
-        Button(self.layout.toggled.switchTitle, systemImage: self.layout.toggled.symbolName) {
-          self.layout = self.layout.toggled
+        Button(
+          self.layoutMode.toggled.switchTitle,
+          systemImage: self.layoutMode.toggled.symbolName
+        ) {
+          self.layoutMode = self.layoutMode.toggled
         }
       }
     }
-    .task { await self.model.load() }
+    .task { await self.viewModel.load() }
   }
 }
 

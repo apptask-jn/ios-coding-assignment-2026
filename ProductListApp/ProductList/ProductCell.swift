@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ProductCell: View {
 
+  // MARK: Constants
+
   private enum Metric {
     static let compactThumbnailWidth: CGFloat = 88
     static let compactThumbnailHeight: CGFloat = 88
@@ -11,10 +13,16 @@ struct ProductCell: View {
     static let cornerRadius: CGFloat = 16
   }
 
+
+  // MARK: Properties
+
   let product: Product
-  let layout: ProductListLayout
+  let layoutMode: ProductListLayoutMode
   let isFavorite: Bool
   let toggleFavorite: () -> Void
+
+
+  // MARK: Layout
 
   var body: some View {
     self.stackLayout {
@@ -53,11 +61,14 @@ struct ProductCell: View {
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     .background(.background.secondary, in: .rect(cornerRadius: Metric.cornerRadius))
   }
+}
 
-  // MARK: Private
+extension ProductCell {
+
+  // MARK: UI Properties
 
   private var stackLayout: AnyLayout {
-    switch self.layout {
+    switch self.layoutMode {
     case .oneColumn:
       AnyLayout(HStackLayout(alignment: .top, spacing: Metric.contentSpacing))
     case .twoColumn:
@@ -66,21 +77,21 @@ struct ProductCell: View {
   }
 
   private var favoriteAlignment: Alignment {
-    switch self.layout {
+    switch self.layoutMode {
     case .oneColumn: .trailing
     case .twoColumn: .bottomTrailing
     }
   }
 
   private var thumbnailMaxWidth: CGFloat {
-    switch self.layout {
+    switch self.layoutMode {
     case .oneColumn: Metric.compactThumbnailWidth
     case .twoColumn: .infinity
     }
   }
 
   private var thumbnailHeight: CGFloat {
-    switch self.layout {
+    switch self.layoutMode {
     case .oneColumn: Metric.compactThumbnailHeight
     case .twoColumn: Metric.regularThumbnailHeight
     }

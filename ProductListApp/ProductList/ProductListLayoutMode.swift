@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum ProductListLayout {
+enum ProductListLayoutMode {
 
   static let itemSpacing: CGFloat = 16
 
@@ -8,7 +8,7 @@ enum ProductListLayout {
   case twoColumn
 }
 
-extension ProductListLayout {
+extension ProductListLayoutMode {
   var columnCount: Int {
     switch self {
     case .oneColumn: 1
@@ -20,7 +20,7 @@ extension ProductListLayout {
     Array(repeating: GridItem(.flexible(), spacing: Self.itemSpacing), count: self.columnCount)
   }
 
-  var toggled: ProductListLayout {
+  var toggled: ProductListLayoutMode {
     switch self {
     case .oneColumn: .twoColumn
     case .twoColumn: .oneColumn
