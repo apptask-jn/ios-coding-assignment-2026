@@ -1,3 +1,7 @@
+import Foundation
+
+@testable import ProductListApp
+
 enum ProductFixture {
 
   static let product = """
@@ -40,4 +44,8 @@ enum ProductFixture {
       "limit": 30
     }
     """
+
+  static func decodedProduct() throws -> Product {
+    try JSONDecoder().decode(Product.self, from: Data(self.product.utf8))
+  }
 }
