@@ -17,14 +17,7 @@ struct ProductListView: View {
         ProgressView()
 
       case .loaded(let products):
-        ScrollView {
-          LazyVGrid(columns: self.layoutMode.columns, spacing: ProductListLayoutMode.itemSpacing) {
-            ForEach(products) { product in
-              ProductCell(product: product, layoutMode: self.layoutMode)
-            }
-          }
-          .padding()
-        }
+        ProductGridView(products: products, layoutMode: self.$layoutMode)
 
       case .failed(let failure):
         ContentUnavailableView {
@@ -40,16 +33,6 @@ struct ProductListView: View {
       }
     }
     .navigationTitle("상품 목록")
-    .toolbar {
-      ToolbarItem(placement: .topBarTrailing) {
-        Button(
-          self.layoutMode.toggled.switchTitle,
-          systemImage: self.layoutMode.toggled.symbolName
-        ) {
-          self.layoutMode = self.layoutMode.toggled
-        }
-      }
-    }
     .task { await self.viewModel.load() }
   }
 }
