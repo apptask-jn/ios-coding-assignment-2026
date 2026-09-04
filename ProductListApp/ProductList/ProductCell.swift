@@ -27,38 +27,42 @@ struct ProductCell: View {
   // MARK: Layout
 
   var body: some View {
-    self.stackLayout {
-      AsyncImage(url: self.product.thumbnailURL) { image in
-        image
-          .resizable()
-          .scaledToFit()
-      } placeholder: {
-        ProgressView()
+    NavigationLink(value: self.product.id) {
+      self.stackLayout {
+        AsyncImage(url: self.product.thumbnailURL) { image in
+          image
+            .resizable()
+            .scaledToFit()
+        } placeholder: {
+          ProgressView()
+        }
+        .frame(
+          maxWidth: self.thumbnailMaxWidth,
+          minHeight: self.thumbnailHeight,
+          maxHeight: self.thumbnailHeight
+        )
+
+        VStack(alignment: .leading, spacing: Metric.textSpacing) {
+          Text(self.product.category.capitalized)
+            .font(.caption)
+            .foregroundStyle(.secondary)
+
+          Text(self.product.title)
+            .font(.headline)
+            .lineLimit(2)
+
+          Text(self.product.price, format: .currency(code: "USD"))
+            .font(.subheadline)
+            .bold()
+        }
+        .padding(.trailing, self.textTrailingPadding)
+        .frame(maxWidth: .infinity, alignment: .leading)
       }
-      .frame(
-        maxWidth: self.thumbnailMaxWidth,
-        minHeight: self.thumbnailHeight,
-        maxHeight: self.thumbnailHeight
-      )
-
-      VStack(alignment: .leading, spacing: Metric.textSpacing) {
-        Text(self.product.category.capitalized)
-          .font(.caption)
-          .foregroundStyle(.secondary)
-
-        Text(self.product.title)
-          .font(.headline)
-          .lineLimit(2)
-
-        Text(self.product.price, format: .currency(code: "USD"))
-          .font(.subheadline)
-          .bold()
-      }
-      .padding(.trailing, self.textTrailingPadding)
-      .frame(maxWidth: .infinity, alignment: .leading)
+      .padding(Metric.contentPadding)
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+      .contentShape(.rect)
     }
-    .padding(Metric.contentPadding)
-    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    .buttonStyle(.plain)
     .overlay(alignment: self.favoriteAlignment) {
       ProductFavoriteButton(productID: self.product.id)
         .padding(self.favoriteButtonPadding)

@@ -25,15 +25,28 @@ struct ProductListView: View {
         } description: {
           Text(failure.message)
         } actions: {
-          Button("다시 시도") {
-            Task { await self.viewModel.load() }
+          if failure.isRetryable {
+            Button("다시 시도", action: self.retry)
+              .buttonStyle(.borderedProminent)
           }
-          .buttonStyle(.borderedProminent)
         }
       }
     }
     .navigationTitle("상품 목록")
+    .navigationBarTitleDisplayMode(.large)
+    .navigationDestination(for: Product.ID.self) { productID in
+      ProductDetailView(productID: productID)
+    }
     .task { await self.viewModel.load() }
+  }
+}
+
+extension ProductListView {
+
+  // MARK: Actions
+
+  private func retry() {
+    Task { await self.viewModel.load() }
   }
 }
 
