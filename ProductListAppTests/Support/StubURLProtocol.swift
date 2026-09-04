@@ -9,6 +9,7 @@ final class StubURLProtocol: URLProtocol {
   }
 
   static let stub = OSAllocatedUnfairLock<Stub?>(initialState: nil)
+  static let lastRequestURL = OSAllocatedUnfairLock<URL?>(initialState: nil)
 
   static func makeSession() -> URLSession {
     let configuration = URLSessionConfiguration.ephemeral
@@ -37,6 +38,8 @@ final class StubURLProtocol: URLProtocol {
       self.client?.urlProtocol(self, didFailWithError: URLError(.badURL))
       return
     }
+
+    Self.lastRequestURL.withLock { $0 = url }
 
     guard let stub = Self.stub.withLock({ $0 }),
           let httpResponse = HTTPURLResponse(

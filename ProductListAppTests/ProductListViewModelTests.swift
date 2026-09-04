@@ -20,7 +20,7 @@ struct ProductListViewModelTests {
 
     await viewModel.load()
 
-    #expect(viewModel.state == .loaded([product]))
+    #expect(viewModel.state == .loaded([product], hasMore: false))
   }
 
   @Test
@@ -55,5 +55,78 @@ struct ProductListViewModelTests {
     await viewModel.load()
 
     #expect(service.fetchProductsCallCount == 1)
+  }
+
+  @Test
+  func loadNextPageAppendsTheFollowingPage() async throws {
+    let products = try ProductFixture.decodedProducts(count: 60)
+    let service = StubProductService(products: products, pageSize: 30)
+    let viewModel = ProductListViewModel(service: service)
+
+    await viewModel.load()
+    await viewModel.loadNextPage()
+
+    #expect(viewModel.state == .loaded(products, hasMore: false))
+    #expect(service.requestedSkips == [0, 30])
+  }
+
+  @Test
+  func loadNextPageStopsAfterTheLastPage() async throws {
+    let products = try ProductFixture.decodedProducts(count: 60)
+    let service = StubProductService(products: products, pageSize: 30)
+    let viewModel = ProductListViewModel(service: service)
+
+    await viewModel.load()
+    await viewModel.loadNextPage()
+    await viewModel.loadNextPage()
+
+    #expect(service.requestedSkips == [0, 30])
+  }
+
+  @Test
+  func concurrentLoadNextPageFetchesOnlyOnce() async throws {
+    let products = try ProductFixture.decodedProducts(count: 90)
+    let service = StubProductService(products: products, pageSize: 30)
+    let viewModel = ProductListViewModel(service: service)
+    await viewModel.load()
+
+    async let first: Void = viewModel.loadNextPage()
+    async let second: Void = viewModel.loadNextPage()
+    _ = await (first, second)
+
+    #expect(service.requestedSkips == [0, 30])
+  }
+
+  @Test
+  func loadNextPageKeepsLoadedProductsWhenItFails() async throws {
+    let products = try ProductFixture.decodedProducts(count: 60)
+    let service = StubProductService(
+      products: products,
+      pageSize: 30,
+      error: URLError(.timedOut),
+      failsFromSkip: 30
+    )
+    let viewModel = ProductListViewModel(service: service)
+
+    await viewModel.load()
+    await viewModel.loadNextPage()
+
+    #expect(viewModel.state == .loaded(Array(products.prefix(30)), hasMore: true))
+    #expect(!viewModel.isLoadingMore)
+  }
+
+  @Test
+  func prefetchTriggerIDPointsToTheCellBeforeTheEnd() async throws {
+    let products = try ProductFixture.decodedProducts(count: 60)
+    let service = StubProductService(products: products, pageSize: 30)
+    let viewModel = ProductListViewModel(service: service)
+
+    await viewModel.load()
+
+    #expect(viewModel.prefetchTriggerID == products[22].id)
+
+    await viewModel.loadNextPage()
+
+    #expect(viewModel.prefetchTriggerID == nil)
   }
 }

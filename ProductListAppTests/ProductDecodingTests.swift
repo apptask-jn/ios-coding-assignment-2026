@@ -58,5 +58,6 @@ struct ProductDecodingTests {
     )
 
     #expect(response.products.map(\.id) == [1, 7])
+    #expect(response.total == 194)
   }
 }

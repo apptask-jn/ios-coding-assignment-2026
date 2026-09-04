@@ -48,4 +48,29 @@ enum ProductFixture {
   static func decodedProduct() throws -> Product {
     try JSONDecoder().decode(Product.self, from: Data(self.product.utf8))
   }
+
+  static func decodedProducts(count: Int) throws -> [Product] {
+    let decoder = JSONDecoder()
+    return try (1...count).map { id in
+      try decoder.decode(Product.self, from: Data(self.product(id: id).utf8))
+    }
+  }
+
+  private static func product(id: Int) -> String {
+    """
+    {
+      "id": \(id),
+      "title": "Product \(id)",
+      "description": "Description \(id)",
+      "category": "beauty",
+      "price": 9.99,
+      "discountPercentage": 10.48,
+      "rating": 2.56,
+      "stock": 99,
+      "brand": "Essence",
+      "images": ["https://cdn.dummyjson.com/p/beauty/mascara/1.webp"],
+      "thumbnail": "https://cdn.dummyjson.com/p/beauty/mascara/thumbnail.webp"
+    }
+    """
+  }
 }

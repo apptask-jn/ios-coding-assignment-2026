@@ -16,8 +16,14 @@ struct ProductListView: View {
       case .loading:
         ProgressView()
 
-      case .loaded(let products):
-        ProductGridView(products: products, layoutMode: self.$layoutMode)
+      case .loaded(let products, _):
+        ProductGridView(
+          products: products,
+          prefetchTriggerID: self.viewModel.prefetchTriggerID,
+          isLoadingMore: self.viewModel.isLoadingMore,
+          loadNextPage: self.loadNextPage,
+          layoutMode: self.$layoutMode
+        )
 
       case .failed(let failure):
         ContentUnavailableView {
@@ -47,6 +53,10 @@ extension ProductListView {
 
   private func retry() {
     Task { await self.viewModel.load() }
+  }
+
+  private func loadNextPage() {
+    Task { await self.viewModel.loadNextPage() }
   }
 }
 

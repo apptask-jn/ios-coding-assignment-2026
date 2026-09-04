@@ -12,9 +12,20 @@ struct ProductServiceImplTests {
   func fetchProductsReturnsDecodedProducts() async throws {
     StubURLProtocol.stubHTTPResponse(statusCode: 200, body: ProductFixture.listResponse)
 
-    let products = try await self.service.fetchProducts()
+    let response = try await self.service.fetchProducts(skip: 0)
 
-    #expect(products.map(\.id) == [1, 7])
+    #expect(response.products.map(\.id) == [1, 7])
+    #expect(response.total == 194)
+  }
+
+  @Test
+  func fetchProductsSendsLimitAndSkipQueryItems() async throws {
+    StubURLProtocol.stubHTTPResponse(statusCode: 200, body: ProductFixture.listResponse)
+
+    _ = try await self.service.fetchProducts(skip: 60)
+
+    let url = try #require(StubURLProtocol.lastRequestURL.withLock { $0 })
+    #expect(url.query() == "limit=30&skip=60")
   }
 
   @Test
@@ -40,7 +51,7 @@ struct ProductServiceImplTests {
     StubURLProtocol.stubNonHTTPResponse()
 
     await #expect(throws: ProductServiceError.invalidResponse) {
-      try await self.service.fetchProducts()
+      try await self.service.fetchProducts(skip: 0)
     }
   }
 }

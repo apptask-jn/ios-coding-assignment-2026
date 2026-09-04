@@ -2,6 +2,7 @@ import Foundation
 
 final class ProductServiceImpl: ProductService {
 
+  static let pageSize = 30
   private static let baseURL = URL(string: "https://dummyjson.com/products")!
   private let session: URLSession
 
@@ -9,9 +10,13 @@ final class ProductServiceImpl: ProductService {
     self.session = session
   }
 
-  func fetchProducts() async throws -> [Product] {
-    let response: ProductListResponse = try await self.get(from: Self.baseURL)
-    return response.products
+  func fetchProducts(skip: Int) async throws -> ProductListResponse {
+    try await self.get(
+      from: Self.baseURL.appending(queryItems: [
+        URLQueryItem(name: "limit", value: String(Self.pageSize)),
+        URLQueryItem(name: "skip", value: String(skip)),
+      ])
+    )
   }
 
   func fetchProduct(id: Int) async throws -> Product {
