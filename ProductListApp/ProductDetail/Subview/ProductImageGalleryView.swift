@@ -1,3 +1,4 @@
+import Kingfisher
 import SwiftUI
 
 struct ProductImageGalleryView: View {
@@ -20,14 +21,12 @@ struct ProductImageGalleryView: View {
     ScrollView(.horizontal) {
       LazyHStack(spacing: 0) {
         ForEach(self.imageURLs, id: \.self) { url in
-          AsyncImage(url: url) { image in
-            image
-              .resizable()
-              .scaledToFit()
-          } placeholder: {
-            ProgressView()
-          }
-          .containerRelativeFrame(.horizontal)
+          KFImage(url)
+            .placeholder { ProgressView() }
+            .onFailureView { Image(systemName: "photo").foregroundStyle(.secondary) }
+            .resizable()
+            .scaledToFit()
+            .containerRelativeFrame(.horizontal)
         }
       }
       .scrollTargetLayout()

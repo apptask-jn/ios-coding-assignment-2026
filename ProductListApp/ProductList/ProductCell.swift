@@ -1,3 +1,4 @@
+import Kingfisher
 import SwiftUI
 
 struct ProductCell: View {
@@ -29,18 +30,16 @@ struct ProductCell: View {
   var body: some View {
     NavigationLink(value: self.product.id) {
       self.stackLayout {
-        AsyncImage(url: self.product.thumbnailURL) { image in
-          image
-            .resizable()
-            .scaledToFit()
-        } placeholder: {
-          ProgressView()
-        }
-        .frame(
-          maxWidth: self.thumbnailMaxWidth,
-          minHeight: self.thumbnailHeight,
-          maxHeight: self.thumbnailHeight
-        )
+        KFImage(self.product.thumbnailURL)
+          .placeholder { ProgressView() }
+          .onFailureView { Image(systemName: "photo").foregroundStyle(.secondary) }
+          .resizable()
+          .scaledToFit()
+          .frame(
+            maxWidth: self.thumbnailMaxWidth,
+            minHeight: self.thumbnailHeight,
+            maxHeight: self.thumbnailHeight
+          )
 
         VStack(alignment: .leading, spacing: Metric.textSpacing) {
           Text(self.product.category.capitalized)
