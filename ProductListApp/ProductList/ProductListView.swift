@@ -4,7 +4,6 @@ struct ProductListView: View {
 
   // MARK: Properties
 
-  @Environment(FavoriteStore.self) private var favoriteStore
   @State private var viewModel = ProductListViewModel()
   @State private var layoutMode: ProductListLayoutMode = .oneColumn
 
@@ -21,12 +20,7 @@ struct ProductListView: View {
         ScrollView {
           LazyVGrid(columns: self.layoutMode.columns, spacing: ProductListLayoutMode.itemSpacing) {
             ForEach(products) { product in
-              ProductCell(
-                product: product,
-                layoutMode: self.layoutMode,
-                isFavorite: self.favoriteStore.contains(product.id),
-                toggleFavorite: { self.favoriteStore.toggle(product.id) }
-              )
+              ProductCell(product: product, layoutMode: self.layoutMode)
             }
           }
           .padding()

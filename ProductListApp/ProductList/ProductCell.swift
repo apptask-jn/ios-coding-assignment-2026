@@ -11,6 +11,10 @@ struct ProductCell: View {
     static let contentSpacing: CGFloat = 12
     static let textSpacing: CGFloat = 4
     static let cornerRadius: CGFloat = 16
+    static let contentPadding: CGFloat = 16
+    static let favoriteButtonInset: CGFloat = 4
+    static let favoriteButtonReservedWidth =
+      FavoriteButton.touchTargetSize + favoriteButtonInset - contentPadding
   }
 
 
@@ -18,8 +22,6 @@ struct ProductCell: View {
 
   let product: Product
   let layoutMode: ProductListLayoutMode
-  let isFavorite: Bool
-  let toggleFavorite: () -> Void
 
 
   // MARK: Layout
@@ -52,13 +54,15 @@ struct ProductCell: View {
           .font(.subheadline)
           .bold()
       }
+      .padding(.trailing, self.textTrailingPadding)
       .frame(maxWidth: .infinity, alignment: .leading)
     }
-    .overlay(alignment: self.favoriteAlignment) {
-      FavoriteButton(isFavorite: self.isFavorite, toggle: self.toggleFavorite)
-    }
-    .padding()
+    .padding(Metric.contentPadding)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    .overlay(alignment: self.favoriteAlignment) {
+      ProductFavoriteButton(productID: self.product.id)
+        .padding(self.favoriteButtonPadding)
+    }
     .background(.background.secondary, in: .rect(cornerRadius: Metric.cornerRadius))
   }
 }
@@ -79,7 +83,29 @@ extension ProductCell {
   private var favoriteAlignment: Alignment {
     switch self.layoutMode {
     case .oneColumn: .trailing
-    case .twoColumn: .bottomTrailing
+    case .twoColumn: .topTrailing
+    }
+  }
+
+  private var favoriteButtonPadding: EdgeInsets {
+    switch self.layoutMode {
+    case .oneColumn:
+      EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: Metric.favoriteButtonInset)
+    case .twoColumn:
+      EdgeInsets(
+        top: Metric.contentPadding + Metric.regularThumbnailHeight
+          - FavoriteButton.touchTargetSize / 2,
+        leading: 0,
+        bottom: 0,
+        trailing: Metric.favoriteButtonInset
+      )
+    }
+  }
+
+  private var textTrailingPadding: CGFloat {
+    switch self.layoutMode {
+    case .oneColumn: Metric.favoriteButtonReservedWidth
+    case .twoColumn: 0
     }
   }
 
