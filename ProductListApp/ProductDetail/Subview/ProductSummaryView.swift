@@ -34,6 +34,7 @@ struct ProductSummaryView: View {
         Spacer()
 
         ProductFavoriteButton(productID: self.product.id)
+          .accessibilityIdentifier("detail-favorite-\(self.product.id)")
       }
     }
   }

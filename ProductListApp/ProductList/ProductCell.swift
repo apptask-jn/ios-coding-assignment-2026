@@ -62,9 +62,11 @@ struct ProductCell: View {
       .contentShape(.rect)
     }
     .buttonStyle(.plain)
+    .accessibilityIdentifier("product-cell-\(self.product.id)")
     .overlay(alignment: self.favoriteAlignment) {
       ProductFavoriteButton(productID: self.product.id)
         .padding(self.favoriteButtonPadding)
+        .accessibilityIdentifier("list-favorite-\(self.product.id)")
     }
     .background(.background.secondary, in: .rect(cornerRadius: Metric.cornerRadius))
   }
