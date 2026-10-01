@@ -8,17 +8,10 @@
 import SwiftUI
 
 struct RootView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
-
-#Preview {
-  RootView()
+  
+  let container: AppContainer
+  
+  var body: some View {
+    ProductListView(container: container)
+  }
 }

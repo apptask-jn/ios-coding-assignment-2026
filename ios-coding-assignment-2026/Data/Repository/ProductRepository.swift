@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserRepository: ProductRepositoryProtocol {
+struct ProductRepository: ProductRepositoryProtocol {
   private let network: ProductNetworkProtocol
   private let userDefaults: FavoriteUserDefaultsProtocol
   init(network: ProductNetworkProtocol, userDefaults: FavoriteUserDefaultsProtocol) {
