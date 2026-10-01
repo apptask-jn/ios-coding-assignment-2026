@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9827F5D1306E7A85008C9B40 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827F5CE306E7A85008C9B40 /* ContentView.swift */; };
+		9827F5D2306E7A85008C9B40 /* ios_coding_assignment_2026App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827F5CF306E7A85008C9B40 /* ios_coding_assignment_2026App.swift */; };
+		9827F5D3306E7A85008C9B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9827F5CD306E7A85008C9B40 /* Assets.xcassets */; };
+		9827F5D6306E7A9A008C9B40 /* ios_coding_assignment_2026Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827F5D4306E7A99008C9B40 /* ios_coding_assignment_2026Tests.swift */; };
+		9827F5DA306E7A9C008C9B40 /* ios_coding_assignment_2026UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827F5D7306E7A9C008C9B40 /* ios_coding_assignment_2026UITests.swift */; };
+		9827F5DB306E7A9C008C9B40 /* ios_coding_assignment_2026UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827F5D8306E7A9C008C9B40 /* ios_coding_assignment_2026UITestsLaunchTests.swift */; };
+		9827F5E1306E7C2E008C9B40 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827F5E0306E7C27008C9B40 /* NetworkError.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		9827F548306E7199008C9B40 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,25 +37,14 @@
 		9827F53A306E7198008C9B40 /* ios-coding-assignment-2026.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-coding-assignment-2026.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9827F547306E7199008C9B40 /* ios-coding-assignment-2026Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-coding-assignment-2026Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9827F551306E7199008C9B40 /* ios-coding-assignment-2026UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-coding-assignment-2026UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9827F5CD306E7A85008C9B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9827F5CE306E7A85008C9B40 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9827F5CF306E7A85008C9B40 /* ios_coding_assignment_2026App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_coding_assignment_2026App.swift; sourceTree = "<group>"; };
+		9827F5D4306E7A99008C9B40 /* ios_coding_assignment_2026Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_coding_assignment_2026Tests.swift; sourceTree = "<group>"; };
+		9827F5D7306E7A9C008C9B40 /* ios_coding_assignment_2026UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_coding_assignment_2026UITests.swift; sourceTree = "<group>"; };
+		9827F5D8306E7A9C008C9B40 /* ios_coding_assignment_2026UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_coding_assignment_2026UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9827F5E0306E7C27008C9B40 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		9827F53C306E7198008C9B40 /* ios-coding-assignment-2026 */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "ios-coding-assignment-2026";
-			sourceTree = "<group>";
-		};
-		9827F54A306E7199008C9B40 /* ios-coding-assignment-2026Tests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "ios-coding-assignment-2026Tests";
-			sourceTree = "<group>";
-		};
-		9827F554306E7199008C9B40 /* ios-coding-assignment-2026UITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "ios-coding-assignment-2026UITests";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9827F537306E7198008C9B40 /* Frameworks */ = {
@@ -75,9 +74,9 @@
 		9827F531306E7198008C9B40 = {
 			isa = PBXGroup;
 			children = (
-				9827F53C306E7198008C9B40 /* ios-coding-assignment-2026 */,
-				9827F54A306E7199008C9B40 /* ios-coding-assignment-2026Tests */,
-				9827F554306E7199008C9B40 /* ios-coding-assignment-2026UITests */,
+				9827F5D0306E7A85008C9B40 /* ios-coding-assignment-2026 */,
+				9827F5D5306E7A99008C9B40 /* ios-coding-assignment-2026Tests */,
+				9827F5D9306E7A9C008C9B40 /* ios-coding-assignment-2026UITests */,
 				9827F53B306E7198008C9B40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +89,106 @@
 				9827F551306E7199008C9B40 /* ios-coding-assignment-2026UITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9827F5D0306E7A85008C9B40 /* ios-coding-assignment-2026 */ = {
+			isa = PBXGroup;
+			children = (
+				9827F5CD306E7A85008C9B40 /* Assets.xcassets */,
+				9827F5E7306E7EC4008C9B40 /* App */,
+				9827F5DD306E7B25008C9B40 /* Presentation */,
+				9827F5DE306E7BF2008C9B40 /* Domain */,
+				9827F5DF306E7C05008C9B40 /* Data */,
+			);
+			path = "ios-coding-assignment-2026";
+			sourceTree = "<group>";
+		};
+		9827F5D5306E7A99008C9B40 /* ios-coding-assignment-2026Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9827F5D4306E7A99008C9B40 /* ios_coding_assignment_2026Tests.swift */,
+			);
+			path = "ios-coding-assignment-2026Tests";
+			sourceTree = "<group>";
+		};
+		9827F5D9306E7A9C008C9B40 /* ios-coding-assignment-2026UITests */ = {
+			isa = PBXGroup;
+			children = (
+				9827F5D7306E7A9C008C9B40 /* ios_coding_assignment_2026UITests.swift */,
+				9827F5D8306E7A9C008C9B40 /* ios_coding_assignment_2026UITestsLaunchTests.swift */,
+			);
+			path = "ios-coding-assignment-2026UITests";
+			sourceTree = "<group>";
+		};
+		9827F5DD306E7B25008C9B40 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		9827F5DE306E7BF2008C9B40 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				9827F5E2306E7C7B008C9B40 /* RepositoryProtocol */,
+				9827F5E6306E7D4E008C9B40 /* Entity */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		9827F5DF306E7C05008C9B40 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9827F5E3306E7C8C008C9B40 /* Repository */,
+				9827F5E4306E7CCA008C9B40 /* UserDefaults */,
+				9827F5E5306E7D10008C9B40 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9827F5E2306E7C7B008C9B40 /* RepositoryProtocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RepositoryProtocol;
+			sourceTree = "<group>";
+		};
+		9827F5E3306E7C8C008C9B40 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		9827F5E4306E7CCA008C9B40 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		9827F5E5306E7D10008C9B40 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		9827F5E6306E7D4E008C9B40 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				9827F5E0306E7C27008C9B40 /* NetworkError.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		9827F5E7306E7EC4008C9B40 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9827F5CE306E7A85008C9B40 /* ContentView.swift */,
+				9827F5CF306E7A85008C9B40 /* ios_coding_assignment_2026App.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,9 +205,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				9827F53C306E7198008C9B40 /* ios-coding-assignment-2026 */,
 			);
 			name = "ios-coding-assignment-2026";
 			packageProductDependencies = (
@@ -130,9 +226,6 @@
 			dependencies = (
 				9827F549306E7199008C9B40 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				9827F54A306E7199008C9B40 /* ios-coding-assignment-2026Tests */,
-			);
 			name = "ios-coding-assignment-2026Tests";
 			packageProductDependencies = (
 			);
@@ -152,9 +245,6 @@
 			);
 			dependencies = (
 				9827F553306E7199008C9B40 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				9827F554306E7199008C9B40 /* ios-coding-assignment-2026UITests */,
 			);
 			name = "ios-coding-assignment-2026UITests";
 			packageProductDependencies = (
@@ -212,6 +302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9827F5D3306E7A85008C9B40 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +327,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9827F5E1306E7C2E008C9B40 /* NetworkError.swift in Sources */,
+				9827F5D1306E7A85008C9B40 /* ContentView.swift in Sources */,
+				9827F5D2306E7A85008C9B40 /* ios_coding_assignment_2026App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9827F5D6306E7A9A008C9B40 /* ios_coding_assignment_2026Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +345,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9827F5DA306E7A9C008C9B40 /* ios_coding_assignment_2026UITests.swift in Sources */,
+				9827F5DB306E7A9C008C9B40 /* ios_coding_assignment_2026UITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
