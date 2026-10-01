@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class AppContainer {
   private lazy var productNetwork: ProductNetworkProtocol =
   ProductNetwork(manager: NetworkManager(session: ProductSession()))
@@ -16,5 +17,9 @@ final class AppContainer {
   
   func makeProductListViewModel() -> ProductListViewModel {
     ProductListViewModel(repository: productRepository)
+  }
+  
+  func makeProductDetailViewModel(productId: Int) -> ProductDetailViewModel {
+    ProductDetailViewModel(repository: productRepository, productId: productId)
   }
 }

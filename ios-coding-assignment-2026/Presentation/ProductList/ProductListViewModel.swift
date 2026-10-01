@@ -7,6 +7,7 @@
 
 import Observation
 
+@Observable
 final class ProductListViewModel {
   private let repository: ProductRepositoryProtocol
   init(repository: ProductRepositoryProtocol) {
