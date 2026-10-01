@@ -29,10 +29,10 @@ struct ProductResult: Decodable, Sendable {
   let availabilityStatus: String?
   let thumbnail: String?
   let images: [String]?
-  let reviews: [ProductReviewDTO]?
+  let reviews: [ProductReview]?
 }
 
-struct ProductReviewDTO: Decodable, Sendable {
+struct ProductReview: Decodable, Sendable {
   let reviewerName: String
   let rating: Int
   let comment: String
