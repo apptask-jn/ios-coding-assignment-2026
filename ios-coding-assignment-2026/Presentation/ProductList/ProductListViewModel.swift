@@ -10,24 +10,31 @@ import Observation
 
 @Observable
 final class ProductListViewModel {
-  
+
   private(set) var state: LoadState<[ProductResult]> = .idle
-  
+
   private let repository: ProductRepositoryProtocol
+
   init(repository: ProductRepositoryProtocol) {
     self.repository = repository
   }
-  
+
+  func loadIfNeeded() async {
+    guard case .idle = state else { return }
+    await loadProductList()
+  }
+
   func loadProductList() async {
     state = .loading
+
     let result = await repository.getProducts()
+
     switch result {
-    case .success(let res):
-      state = .loaded(res.products)
+    case .success(let response):
+      state = .loaded(response.products)
+
     case .failure(let error):
-      print(error.localizedDescription)
       state = .failed(error)
     }
   }
-    
 }
