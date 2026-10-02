@@ -9,10 +9,10 @@ import Foundation
 
 protocol FavoriteUserDefaultsProtocol: Sendable {
   func load() -> Set<Int>
-  func save(_ ids: Set<Int>)
+  func toggle(_ id: Int) -> Set<Int>
 }
 
-struct FavoriteUserDefaults: FavoriteUserDefaultsProtocol {
+struct FavoriteUserDefaults: FavoriteUserDefaultsProtocol, @unchecked Sendable {
 
   private let defaults: UserDefaults
   private let key: String
@@ -22,12 +22,28 @@ struct FavoriteUserDefaults: FavoriteUserDefaultsProtocol {
     self.key = key
   }
 
+  // MARK: - 읽기
   func load() -> Set<Int> {
     let stored = defaults.array(forKey: key) as? [Int] ?? []
     return Set(stored)
   }
 
-  func save(_ ids: Set<Int>) {
+  // MARK: - 토글
+  func toggle(_ id: Int) -> Set<Int> {
+    var ids = load()
+    
+    if ids.contains(id) {
+      ids.remove(id)
+    } else {
+      ids.insert(id)
+    }
+
+    save(ids)
+    return ids
+  }
+
+  // MARK: - 쓰기 (내부 전용)
+  private func save(_ ids: Set<Int>) {
     defaults.set(ids.sorted(), forKey: key)
   }
 }
