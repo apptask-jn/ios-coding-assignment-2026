@@ -6,9 +6,13 @@
 //
 
 protocol ProductRepositoryProtocol {
+
+  // MARK: - 원격 (DummyJSON API)
   func getProducts() async -> Result<ProductResponseResult, NetworkError>
+
   func getDetailProduct(id: Int) async -> Result<ProductResult, NetworkError>
-  
-  func load() -> Set<Int>
-  func save(_ ids: Set<Int>)
+
+  // MARK: - 로컬 (찜)
+  func loadFavorites() -> Set<Int>
+  func toggleFavorite(_ id: Int) -> Set<Int>
 }
